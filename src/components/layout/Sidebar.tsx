@@ -34,6 +34,10 @@ const isOrgsPath = (path: string) => {
   return path.startsWith('/orgs');
 };
 
+const isCampaignsPath = (path: string) => {
+  return path.startsWith('/campaigns');
+};
+
 export const Sidebar = () => {
   const pathname = usePathname();
 
@@ -42,6 +46,8 @@ export const Sidebar = () => {
       return isSettingsPath(pathname);
     } else if (path === '/orgs') {
       return isOrgsPath(pathname);
+    } else if (path === '/campaigns') {
+      return isCampaignsPath(pathname);
     }
     return pathname === path;
   };

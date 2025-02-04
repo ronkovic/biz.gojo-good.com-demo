@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Avatar } from './Avatar';
 import { EmailChangeModal } from './EmailChangeModal';
 import { PasswordChangeModal } from './PasswordChangeModal';
+import { TwoFactorSetupModal } from './TwoFactorSetupModal';
 
 interface AccountFormProps {
   initialData?: {
@@ -11,6 +12,7 @@ interface AccountFormProps {
     lastName: string;
     email: string;
     role: 'admin' | 'user';
+    twoFactorEnabled?: boolean;
   };
 }
 
@@ -20,10 +22,15 @@ export function AccountForm({ initialData }: AccountFormProps) {
     lastName: initialData?.lastName || '',
     email: initialData?.email || '',
     role: initialData?.role || 'user',
+    twoFactorEnabled: initialData?.twoFactorEnabled || false,
   });
 
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isTwoFactorModalOpen, setIsTwoFactorModalOpen] = useState(false);
+
+  // 実際のアプリケーションでは、APIからQRコードのURLを取得します
+  const mockQrCodeUrl = 'otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +48,13 @@ export function AccountForm({ initialData }: AccountFormProps) {
     // TODO: APIを呼び出してパスワードを更新
     console.log('Update password:', { currentPassword, newPassword });
     setIsPasswordModalOpen(false);
+  };
+
+  const handleTwoFactorSetup = (verificationCode: string, currentPassword: string) => {
+    // TODO: APIを呼び出して2要素認証を設定
+    console.log('Setup 2FA:', { verificationCode, currentPassword });
+    setIsTwoFactorModalOpen(false);
+    setFormData({ ...formData, twoFactorEnabled: true });
   };
 
   return (
@@ -102,14 +116,27 @@ export function AccountForm({ initialData }: AccountFormProps) {
             <dt className="text-sm font-medium text-gray-500">2要素認証</dt>
             <div className="mt-1 flex items-center justify-between">
               <div className="flex items-center gap-x-2">
-                <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
+                <svg
+                  className={`h-5 w-5 ${
+                    formData.twoFactorEnabled ? 'text-green-500' : 'text-gray-400'
+                  }`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                    clipRule="evenodd"
+                  />
                 </svg>
-                <dd className="text-sm text-gray-900">無効</dd>
+                <dd className="text-sm text-gray-900">
+                  {formData.twoFactorEnabled ? '有効' : '無効'}
+                </dd>
               </div>
               <button
                 type="button"
                 className="text-sm text-blue-600 hover:text-blue-500"
+                onClick={() => setIsTwoFactorModalOpen(true)}
               >
                 2要素認証を設定
               </button>
@@ -234,6 +261,13 @@ export function AccountForm({ initialData }: AccountFormProps) {
         isOpen={isPasswordModalOpen}
         onClose={() => setIsPasswordModalOpen(false)}
         onSubmit={handlePasswordChange}
+      />
+
+      <TwoFactorSetupModal
+        isOpen={isTwoFactorModalOpen}
+        onClose={() => setIsTwoFactorModalOpen(false)}
+        onSubmit={handleTwoFactorSetup}
+        qrCodeUrl={mockQrCodeUrl}
       />
     </>
   );

@@ -26,9 +26,19 @@ const menuItems = [
   { path: '/help', icon: QuestionMarkCircleIcon, label: 'お問い合わせ', labelEn: 'Help' },
 ];
 
+const isSettingsPath = (path: string) => {
+  return path.startsWith('/settings/');
+};
+
 export const Sidebar = () => {
   const pathname = usePathname();
-  const isActive = (path: string) => pathname === path;
+
+  const isActive = (path: string) => {
+    if (path === '/settings/general') {
+      return isSettingsPath(pathname);
+    }
+    return pathname === path;
+  };
 
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50">

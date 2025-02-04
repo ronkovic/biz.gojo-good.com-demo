@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 const navigation = [
   { name: '表示設定', href: '/settings/general' },
-  { name: '連携コード設定', href: '/settings/integration' },
+  { name: '連携コード設定', href: '/settings/codes' },
   { name: '初回ポーナス設定', href: '/settings/bonus' },
   { name: '二要素認証', href: '/settings/2fa' },
 ];

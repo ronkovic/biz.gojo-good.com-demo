@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { OrgTabs } from '@/components/orgs/OrgTabs';
 import { OrgBasicData } from '@/components/orgs/OrgBasicData';
+import { OrgStory } from '@/components/orgs/OrgStory';
 import { Tab } from '@headlessui/react';
 import { BookmarkIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 
@@ -28,6 +29,42 @@ const dummyOrg = {
   donationCount: 12433,
   description: 'ジャパンビジョンは災害や紛争、社会構造の変化などによって危機にさらされた個人に対して国内外での支援活動を行う、日本発祥のNGO（非政府で非営利の民間団体）です。国際人道支援、災害支援の「緊急医療支援チーム」、動物保護の「アニマルケアサポートチーム」を軸に活動しています。',
   categories: ['災害支援', '海外支援', 'どうぶつ'],
+  stories: [
+    {
+      id: '1',
+      title: 'この世界には「あきらめない集団」が必要だ。',
+      content: `世界中で起きる災害や紛争、多くの人が「解決は無理」になっているような問題に対して、私たちは諦めずに解決を求めるのかもしれません。
+
+ビーツウィン!空白部や余白、主な画面の変化などによって危機にさらされた個に対して「支援が実行する場合を行う」、日本発祥のNGO（非政府で非営利の民間団体）です。
+
+大阪関西において1996年に設立され、現在は神、世界各地に支援を届けています。
+
+世界中で起きる災害や紛争、多くの人が「解決は無理」になっているような問題に対して、私たちは諦めずに解決を求めるのかもしれません。
+
+ビーツウィン!空白部や余白、主な画面の変化などによって危機にさらされた個に対して「支援が実行する場合を行う」、日本発祥のNGO（非政府で非営利の民間団体）です。
+
+大阪関西において1996年に設立され、現在は神、世界各地に支援を届けています。`,
+      imageUrl: 'https://picsum.photos/800/450?random=story1',
+      tag: 'STORY',
+    },
+    {
+      id: '2',
+      title: 'h2タイトル',
+      content: `世界中で起きる災害や紛争、多くの人が「解決は無理」になっているような問題に対して、私たちは諦めずに解決を求めるのかもしれません。
+
+ビーツウィン!空白部や余白、主な画面の変化などによって危機にさらされた個に対して「支援が実行する場合を行う」、日本発祥のNGO（非政府で非営利の民間団体）です。
+
+大阪関西において1996年に設立され、現在は神、世界各地に支援を届けています。
+
+世界中で起きる災害や紛争、多くの人が「解決は無理」になっているような問題に対して、私たちは諦めずに解決を求めるのかもしれません。
+
+ビーツウィン!空白部や余白、主な画面の変化などによって危機にさらされた個に対して「支援が実行する場合を行う」、日本発祥のNGO（非政府で非営利の民間団体）です。
+
+大阪関西において1996年に設立され、現在は神、世界各地に支援を届けています。`,
+      imageUrl: 'https://picsum.photos/800/450?random=story2',
+      tag: 'STORY',
+    },
+  ],
 };
 
 export default function OrgDetailPage() {
@@ -82,11 +119,7 @@ export default function OrgDetailPage() {
               <div className="px-6 py-4">
                 <OrgTabs>
                   <OrgBasicData org={dummyOrg} />
-                  <Tab.Panel>
-                    <div className="py-12 text-center text-gray-500">
-                      ストーリーは準備中です
-                    </div>
-                  </Tab.Panel>
+                  <OrgStory stories={dummyOrg.stories} />
                   <Tab.Panel>
                     <div className="py-12 text-center text-gray-500">
                       プロジェクトは準備中です

@@ -42,7 +42,7 @@ export const Header = () => {
             </div>
             <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
               <Image
-                src="/default-avatar.png"
+                src="https://picsum.photos/64/64"
                 alt="User Avatar"
                 width={32}
                 height={32}

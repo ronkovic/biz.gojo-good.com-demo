@@ -34,7 +34,7 @@ export const Sidebar = () => {
     <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50">
       <div className="h-16 flex items-center px-4 border-b border-gray-200">
         <Image
-          src="/gojo-logo.svg"
+          src="https://picsum.photos/120/40"
           alt="GOJO Logo"
           width={120}
           height={40}

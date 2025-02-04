@@ -14,6 +14,18 @@ const dummyUsers = Array(10).fill(null).map((_, i) => ({
   amount: 12340,
   lastDonationDate: '2024-10-30T20:30:30',
   lastLoginDate: '2024-10-30T20:30:30',
+  age: i === 5 ? '30代' : undefined,
+  gender: i === 5 ? '女性' : undefined,
+  location: i === 5 ? '神奈川県藤沢市' : undefined,
+  totalAmount: 245000,
+  donationCount: 148,
+  donationHistory: Array(6).fill(null).map((_, j) => ({
+    organization: 'ジャパンビジョン',
+    category: '災害復興',
+    subCategory: '国際協力',
+    amount: 400,
+    date: '2024-10-30T20:30:30',
+  })),
 }));
 
 export default function CooperationUsersPage() {

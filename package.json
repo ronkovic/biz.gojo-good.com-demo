@@ -10,6 +10,7 @@
     "create-pages": "ts-node scripts/create-dev-pages.ts"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "chart.js": "^4.4.7",
     "next": "15.1.6",

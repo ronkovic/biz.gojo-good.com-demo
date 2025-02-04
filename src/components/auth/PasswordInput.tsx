@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Input } from '../common/Input';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';

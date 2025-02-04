@@ -38,6 +38,10 @@ const isCampaignsPath = (path: string) => {
   return path.startsWith('/campaigns');
 };
 
+const isHomePath = (path: string) => {
+  return path === '/' || path === '/billing';
+};
+
 export const Sidebar = () => {
   const pathname = usePathname();
 
@@ -48,6 +52,8 @@ export const Sidebar = () => {
       return isOrgsPath(pathname);
     } else if (path === '/campaigns') {
       return isCampaignsPath(pathname);
+    } else if (path === '/home') {
+      return isHomePath(pathname);
     }
     return pathname === path;
   };

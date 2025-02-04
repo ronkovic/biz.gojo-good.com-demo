@@ -30,28 +30,30 @@ export function OrgPosts({ posts }: OrgPostsProps) {
     <Tab.Panel>
       <div className="relative">
         {/* タイムライン */}
-        <div className="absolute left-8 top-0 bottom-0 w-px bg-gray-200" />
+        <div className="absolute left-[4.5rem] top-0 bottom-0 w-px bg-blue-100" />
 
-        <div className="space-y-8">
+        <div className="space-y-12">
           {posts.map((post) => {
             const date = new Date(post.date);
-            const year = format(date, 'yyyy年', { locale: ja });
+            const year = format(date, 'yyyy', { locale: ja });
             const monthDay = format(date, 'MM月dd日', { locale: ja });
             const time = format(date, 'HH:mm:ss', { locale: ja });
 
             return (
-              <div key={post.id} className="relative pl-16">
+              <div key={post.id} className="relative pl-24">
                 {/* 日付マーカー */}
-                <div className="absolute left-0 flex flex-col items-end">
-                  <div className="text-sm text-gray-500">{year}</div>
-                  <div className="text-sm font-medium text-gray-900">{monthDay}</div>
-                  <div className="text-xs text-gray-500">{time}</div>
-                  <div className="absolute left-8 top-3 w-2 h-2 rounded-full bg-blue-600" />
+                <div className="absolute left-0 top-0">
+                  <div className="flex flex-col items-end">
+                    <div className="text-[13px] font-normal text-blue-600">{year}年</div>
+                    <div className="text-[13px] font-medium text-gray-900">{monthDay}</div>
+                    <div className="text-[11px] font-normal text-gray-500">{time}</div>
+                  </div>
+                  <div className="absolute left-[4.5rem] top-2 w-2.5 h-2.5 rounded-full bg-blue-600 -translate-x-1/2" />
                 </div>
 
                 {/* ポストコンテンツ */}
-                <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                  <div className="relative aspect-[16/9]">
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <div className="relative aspect-video">
                     <Image
                       src={post.imageUrl}
                       alt=""
@@ -59,31 +61,33 @@ export function OrgPosts({ posts }: OrgPostsProps) {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-4">
-                    <p className="text-gray-600 whitespace-pre-wrap">
+                  <div className="p-6">
+                    <p className="text-[15px] leading-relaxed text-gray-700 whitespace-pre-wrap">
                       {post.content}
                     </p>
                     <div className="mt-4 flex items-center justify-between">
-                      <button className="inline-flex items-center text-gray-500 hover:text-gray-700">
-                        <HeartIcon className="h-5 w-5 mr-1" />
-                        <span className="text-sm">いいね {post.likeCount.toLocaleString()}</span>
-                      </button>
+                      <div className="flex items-center space-x-1">
+                        <button className="group">
+                          <HeartIcon className="h-5 w-5 text-gray-400 group-hover:text-red-500" />
+                        </button>
+                        <span className="text-[13px] text-gray-500">いいね {post.likeCount.toLocaleString()}</span>
+                      </div>
                       <Link
                         href="#"
-                        className="text-sm text-blue-600 hover:text-blue-500"
+                        className="text-[13px] text-blue-600 hover:text-blue-500 flex items-center"
                       >
                         寄付実績へ
-                        <ArrowTopRightOnSquareIcon className="inline-block h-4 w-4 ml-1" />
+                        <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />
                       </Link>
                     </div>
 
                     {/* 関連プロジェクト */}
                     {post.relatedProject && (
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <h4 className="text-sm text-gray-500 mb-2">対象のプロジェクト</h4>
+                      <div className="mt-6 pt-4 border-t border-gray-100">
+                        <h4 className="text-[13px] text-gray-500 mb-3">対象のプロジェクト</h4>
                         <Link
                           href={post.relatedProject.url}
-                          className="flex items-start space-x-3 p-2 rounded hover:bg-gray-50"
+                          className="flex items-start space-x-3 rounded hover:bg-gray-50"
                         >
                           <div className="relative h-16 w-24 flex-shrink-0">
                             <Image
@@ -94,11 +98,14 @@ export function OrgPosts({ posts }: OrgPostsProps) {
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm text-gray-900 font-medium line-clamp-2">
+                            <p className="text-[13px] text-gray-700 line-clamp-2">
                               {post.relatedProject.title}
                             </p>
+                            <p className="mt-1 text-[11px] text-gray-500">
+                              {/* 応募終了まで残り○○日のみ */}
+                            </p>
                           </div>
-                          <ArrowTopRightOnSquareIcon className="h-5 w-5 text-gray-400 flex-shrink-0" />
+                          <ArrowTopRightOnSquareIcon className="h-4 w-4 text-gray-400 flex-shrink-0 mt-1" />
                         </Link>
                       </div>
                     )}

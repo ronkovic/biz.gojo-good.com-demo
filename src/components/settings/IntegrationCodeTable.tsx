@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { Menu } from '@headlessui/react';
 import { format } from 'date-fns';
@@ -26,6 +27,8 @@ export function IntegrationCodeTable({
   onCopy,
   onDelete,
 }: IntegrationCodeTableProps) {
+  const router = useRouter();
+
   const formatDate = (dateStr: string) => {
     return format(new Date(dateStr), 'yyyy年MM月dd日', { locale: ja });
   };
@@ -37,6 +40,10 @@ export function IntegrationCodeTable({
     await navigator.clipboard.writeText(code);
   };
 
+  const handleRowClick = (id: string) => {
+    router.push(`/settings/codes/${id}/edit`);
+  };
+
   return (
     <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
       <div className="px-4 py-6 sm:px-6">
@@ -44,6 +51,7 @@ export function IntegrationCodeTable({
           <span className="text-sm text-gray-500">全{codes.length}件</span>
           <button
             type="button"
+            onClick={() => router.push('/settings/codes/create')}
             className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
             ＋ コードを追加
@@ -73,7 +81,11 @@ export function IntegrationCodeTable({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {codes.map((code) => (
-              <tr key={code.id} className="hover:bg-gray-50">
+              <tr
+                key={code.id}
+                className="hover:bg-gray-50 cursor-pointer"
+                onClick={() => handleRowClick(code.id)}
+              >
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div>
                     <div className="text-sm font-medium text-gray-900">
@@ -82,7 +94,10 @@ export function IntegrationCodeTable({
                     <div className="flex items-center mt-1">
                       <code className="text-xs text-gray-500">{code.code}</code>
                       <button
-                        onClick={() => handleCopy(code.code)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopy(code.code);
+                        }}
                         className="ml-2 p-1 hover:bg-gray-100 rounded-full"
                       >
                         <ClipboardIcon className="h-4 w-4 text-gray-400" />
@@ -109,13 +124,20 @@ export function IntegrationCodeTable({
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="p-2 hover:bg-gray-100 rounded-full">
+                    <Menu.Button
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-2 hover:bg-gray-100 rounded-full"
+                    >
                       <EllipsisHorizontalIcon className="h-5 w-5 text-gray-400" />
                     </Menu.Button>
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRowClick(code.id);
+                            }}
                             className={`${
                               active ? 'bg-gray-50' : ''
                             } block px-4 py-2 text-sm text-gray-700 w-full text-left`}

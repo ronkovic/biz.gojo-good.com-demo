@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Avatar } from './Avatar';
 import { EmailChangeModal } from './EmailChangeModal';
+import { PasswordChangeModal } from './PasswordChangeModal';
 
 interface AccountFormProps {
   initialData?: {
@@ -22,6 +23,7 @@ export function AccountForm({ initialData }: AccountFormProps) {
   });
 
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +35,12 @@ export function AccountForm({ initialData }: AccountFormProps) {
     // TODO: APIを呼び出してメール認証を送信
     console.log('Send verification email to:', newEmail);
     setIsEmailModalOpen(false);
+  };
+
+  const handlePasswordChange = (currentPassword: string, newPassword: string) => {
+    // TODO: APIを呼び出してパスワードを更新
+    console.log('Update password:', { currentPassword, newPassword });
+    setIsPasswordModalOpen(false);
   };
 
   return (
@@ -79,6 +87,7 @@ export function AccountForm({ initialData }: AccountFormProps) {
               <button
                 type="button"
                 className="text-sm text-blue-600 hover:text-blue-500 flex items-center gap-x-1"
+                onClick={() => setIsPasswordModalOpen(true)}
               >
                 <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885l9.416-9.416a2.5 2.5 0 00-3.536-3.536L3.58 13.42a4 4 0 00-.885 1.343z" />
@@ -219,6 +228,12 @@ export function AccountForm({ initialData }: AccountFormProps) {
         isOpen={isEmailModalOpen}
         onClose={() => setIsEmailModalOpen(false)}
         onSubmit={handleEmailChange}
+      />
+
+      <PasswordChangeModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        onSubmit={handlePasswordChange}
       />
     </>
   );

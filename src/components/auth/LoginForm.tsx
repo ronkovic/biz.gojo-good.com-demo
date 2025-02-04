@@ -5,6 +5,7 @@ import { Input } from '../common/Input';
 import { PasswordInput } from './PasswordInput';
 import { Checkbox } from '../common/Checkbox';
 import { Button } from '../common/Button';
+import Link from 'next/link';
 
 export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -65,12 +66,12 @@ export const LoginForm = () => {
             checked={formData.rememberMe}
             onChange={handleChange}
           />
-          <a
-            href="#"
+          <Link
+            href="/login/forgot_password"
             className="text-sm text-blue-500 hover:text-blue-600"
           >
             パスワードを忘れたら
-          </a>
+          </Link>
         </div>
 
         <Button

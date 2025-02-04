@@ -22,57 +22,48 @@ interface OrgProjectsProps {
 export function OrgProjects({ projects }: OrgProjectsProps) {
   return (
     <Tab.Panel>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-gray-900">{projects.length}件</h3>
-        </div>
-        <div className="space-y-4">
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={project.url}
-              className="block hover:bg-gray-50"
-            >
-              <div className="flex items-start space-x-4 p-4 border border-gray-200 rounded-lg">
-                <div className="relative h-24 w-32 flex-shrink-0">
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                  <div className="absolute bottom-2 left-2">
-                    <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-900/75 text-white">
-                      {project.category}
-                    </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {projects.map((project) => (
+          <Link
+            key={project.id}
+            href={project.url}
+            className="block bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"
+          >
+            <div className="relative aspect-[16/9]">
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                  {project.category}
+                </span>
+                <ArrowTopRightOnSquareIcon className="h-4 w-4 text-gray-400" />
+              </div>
+              <h3 className="text-[15px] font-medium text-gray-900 mb-4 line-clamp-2">
+                {project.title}
+              </h3>
+              <div className="flex items-center justify-between text-[13px] text-gray-500">
+                <div>
+                  <div className="font-medium text-gray-900">
+                    {project.donationAmount.toLocaleString()}円
                   </div>
+                  <div>寄付総額</div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-base font-medium text-gray-900 truncate pr-4">
-                      {project.title}
-                    </h4>
-                    <ArrowTopRightOnSquareIcon className="h-5 w-5 text-gray-400 flex-shrink-0" />
+                <div className="text-right">
+                  <div className="font-medium text-gray-900">
+                    {project.donorCount.toLocaleString()}件
                   </div>
-                  <div className="mt-4 grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm text-gray-500">寄付総額</p>
-                      <p className="mt-1 text-sm font-medium text-gray-900">
-                        {project.donationAmount.toLocaleString()}円
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">寄付件数</p>
-                      <p className="mt-1 text-sm font-medium text-gray-900">
-                        {project.donorCount.toLocaleString()}件
-                      </p>
-                    </div>
-                  </div>
+                  <div>寄付件数</div>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </Tab.Panel>
   );

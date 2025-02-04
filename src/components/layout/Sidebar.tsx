@@ -30,12 +30,18 @@ const isSettingsPath = (path: string) => {
   return path.startsWith('/settings/');
 };
 
+const isOrgsPath = (path: string) => {
+  return path.startsWith('/orgs');
+};
+
 export const Sidebar = () => {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
     if (path === '/settings/general') {
       return isSettingsPath(pathname);
+    } else if (path === '/orgs') {
+      return isOrgsPath(pathname);
     }
     return pathname === path;
   };

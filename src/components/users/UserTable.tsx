@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import { EllipsisHorizontalIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { Menu } from '@headlessui/react';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { UserFormModal } from './UserFormModal';
 
 interface User {
   id: string;
@@ -21,29 +23,48 @@ interface User {
 interface UserTableProps {
   users: User[];
   onDelete?: (userId: string) => void;
+  onInvite?: (data: { email: string; role: string }) => void;
+  onUpdate?: (userId: string, data: { role: string }) => void;
 }
 
-export function UserTable({ users, onDelete }: UserTableProps) {
+export function UserTable({ users, onDelete, onInvite, onUpdate }: UserTableProps) {
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return format(date, 'yyyy年MM月dd日\nHH:mm:ss', { locale: ja });
+  };
+
+  const handleRowClick = (user: User) => {
+    setSelectedUser(user);
+    setIsEditModalOpen(true);
   };
 
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between py-4 px-6">
         <span className="text-sm text-gray-500">全{users.length}件</span>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="氏名、メールアドレスなど"
-            className="w-64 px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="氏名、メールアドレスなど"
+              className="w-64 px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
           </div>
+          <button
+            onClick={() => setIsCreateModalOpen(true)}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            ユーザー招待
+          </button>
         </div>
       </div>
 
@@ -74,7 +95,7 @@ export function UserTable({ users, onDelete }: UserTableProps) {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {users.map((user) => (
-            <tr key={user.id} className="hover:bg-gray-50">
+            <tr key={user.id} className="hover:bg-gray-50" onClick={() => handleRowClick(user)}>
               <td className="px-6 py-4">
                 <input
                   type="checkbox"
@@ -163,6 +184,39 @@ export function UserTable({ users, onDelete }: UserTableProps) {
           ))}
         </div>
       </div>
+
+      {/* 新規作成モーダル */}
+      <UserFormModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        mode="create"
+        onSubmit={(data) => {
+          if (onInvite && data.email && data.role) {
+            onInvite({ email: data.email, role: data.role });
+          }
+          setIsCreateModalOpen(false);
+        }}
+      />
+
+      {/* 編集モーダル */}
+      {selectedUser && (
+        <UserFormModal
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setSelectedUser(null);
+          }}
+          mode="edit"
+          user={selectedUser}
+          onSubmit={(data) => {
+            if (onUpdate && data.role) {
+              onUpdate(selectedUser.id, { role: data.role });
+            }
+            setIsEditModalOpen(false);
+            setSelectedUser(null);
+          }}
+        />
+      )}
     </div>
   );
 }

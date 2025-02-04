@@ -66,6 +66,21 @@ const dummyUsers = [
 ];
 
 export default function UsersPage() {
+  const handleInvite = async (data: { email: string; role: string }) => {
+    console.log('Invite user:', data);
+    // TODO: API呼び出し
+  };
+
+  const handleUpdate = async (userId: string, data: { role: string }) => {
+    console.log('Update user:', userId, data);
+    // TODO: API呼び出し
+  };
+
+  const handleDelete = async (userId: string) => {
+    console.log('Delete user:', userId);
+    // TODO: API呼び出し
+  };
+
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50">
@@ -78,19 +93,14 @@ export default function UsersPage() {
                   管理画面を利用するユーザーのアカウント・権限を管理します。
                 </p>
               </div>
-              <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                <PlusIcon className="h-5 w-5 mr-1.5" />
-                ユーザー招待
-              </button>
             </div>
 
             <div className="mt-6">
               <UserTable
                 users={dummyUsers}
-                onDelete={(userId) => {
-                  console.log('Delete user:', userId);
-                  // TODO: 削除処理
-                }}
+                onDelete={handleDelete}
+                onInvite={handleInvite}
+                onUpdate={handleUpdate}
               />
             </div>
           </div>

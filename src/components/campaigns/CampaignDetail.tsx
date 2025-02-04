@@ -108,7 +108,7 @@ export const CampaignDetail = ({ campaign }: CampaignDetailProps) => {
             {campaign.organizations.map((org, index) => (
               <div key={index} className="flex items-center mr-4">
                 <Image
-                  src={org.logo}
+                  src={`https://picsum.photos/48/48?random=${index + 1}`}
                   alt={org.name}
                   width={24}
                   height={24}

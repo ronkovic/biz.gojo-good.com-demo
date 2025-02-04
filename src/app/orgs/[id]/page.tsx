@@ -7,6 +7,7 @@ import { OrgTabs } from '@/components/orgs/OrgTabs';
 import { OrgBasicData } from '@/components/orgs/OrgBasicData';
 import { OrgStory } from '@/components/orgs/OrgStory';
 import { OrgProjects } from '@/components/orgs/OrgProjects';
+import { OrgPosts } from '@/components/orgs/OrgPosts';
 import { Tab } from '@headlessui/react';
 import { BookmarkIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 
@@ -90,6 +91,41 @@ const dummyOrg = {
       url: '#',
     },
   ],
+  posts: [
+    {
+      id: '1',
+      date: '2024-09-10T20:00:00',
+      content: `現地では台風11号（ヤギ）の影響でダムの緊急放流が行われ、イエンバイ省では、洪水による二次災害が起きています。
+
+ピースウィンズでは、ベトナムの現地支援チームと連携し、支援に向けて調査・調整を続けています。現地で...`,
+      imageUrl: 'https://picsum.photos/800/450?random=post1',
+      likeCount: 14520,
+      relatedProject: {
+        id: '1',
+        title: 'プロジェクト名が入りますプロジェクト名が入ります',
+        imageUrl: 'https://picsum.photos/800/450?random=related1',
+        url: '#',
+      },
+    },
+    {
+      id: '2',
+      date: '2024-09-10T20:00:00',
+      content: `現地では台風11号（ヤギ）の影響でダムの緊急放流が行われ、イエンバイ省では、洪水による二次災害が起きています。
+
+ピースウィンズでは、ベトナムの現地支援チームと連携し、支援に向けて調査・調整を続けています。現地で...`,
+      imageUrl: 'https://picsum.photos/800/450?random=post2',
+      likeCount: 14520,
+    },
+    {
+      id: '3',
+      date: '2024-09-10T20:00:00',
+      content: `現地では台風11号（ヤギ）の影響でダムの緊急放流が行われ、イエンバイ省では、洪水による二次災害が起きています。
+
+ピースウィンズでは、ベトナムの現地支援チームと連携し、支援に向けて調査・調整を続けています。現地で...`,
+      imageUrl: 'https://picsum.photos/800/450?random=post3',
+      likeCount: 14520,
+    },
+  ],
 };
 
 export default function OrgDetailPage() {
@@ -146,11 +182,7 @@ export default function OrgDetailPage() {
                   <OrgBasicData org={dummyOrg} />
                   <OrgStory stories={dummyOrg.stories} />
                   <OrgProjects projects={dummyOrg.projects} />
-                  <Tab.Panel>
-                    <div className="py-12 text-center text-gray-500">
-                      ポストは準備中です
-                    </div>
-                  </Tab.Panel>
+                  <OrgPosts posts={dummyOrg.posts} />
                 </OrgTabs>
               </div>
             </div>

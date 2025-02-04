@@ -1,12 +1,10 @@
-import { DevelopmentPage } from '@/components/debug/DevelopmentPage';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
+import { OverallReport } from '@/components/home/OverallReport';
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <DevelopmentPage
-      title="ホーム"
-      description="ダッシュボード画面"
-      path="/home"
-      parameters={{}}
-    />
+    <DashboardLayout>
+      <OverallReport />
+    </DashboardLayout>
   );
 }

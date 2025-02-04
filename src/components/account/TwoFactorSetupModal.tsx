@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import QRCode from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 interface TwoFactorSetupModalProps {
   isOpen: boolean;
@@ -80,7 +80,7 @@ export function TwoFactorSetupModal({
                   </div>
 
                   <div className="flex flex-col items-center space-y-4 mb-6">
-                    <QRCode value={qrCodeUrl} size={200} />
+                    <QRCodeCanvas value={qrCodeUrl} size={200} />
                     <p className="text-sm text-gray-500">
                       QRコードをアプリで読み取ってください。
                     </p>

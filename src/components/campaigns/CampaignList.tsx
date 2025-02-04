@@ -8,7 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const dummyCampaigns = Array(12).fill(null).map((_, i) => ({
   id: i + 1,
   title: 'キャンペーンタイトル×キャンペーンタイトル',
-  imageUrl: '/campaign-image.jpg', // 実際の画像パスに置き換える
+  imageUrl: `https://picsum.photos/800/400?random=${i}`, // ダミー画像URLを更新
   period: '2024年10月01日〜2024年12月31日',
   organizations: ['株式会社サンプル'],
   status: i % 4 === 0 ? 'active' : i % 4 === 1 ? 'ended' : i % 4 === 2 ? 'scheduled' : 'draft',

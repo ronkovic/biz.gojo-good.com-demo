@@ -7,11 +7,11 @@ import { CampaignDetail } from '@/components/campaigns/CampaignDetail';
 const dummyCampaign = {
   id: '1',
   title: 'キャンペーンタイトルがここに入ります キャンペーンタイトルがここに入ります',
-  mainImage: '/campaign-hero.jpg', // 実際の画像パスに置き換える
+  mainImage: 'https://picsum.photos/1200/600', // メイン画像
   period: '2024年1月1日〜2024年12月31日',
   organizations: [
-    { name: '株式会社サンプル', logo: '/company-logo.png' },
-    { name: '株式会社サンプル2', logo: '/company-logo2.png' },
+    { name: '株式会社サンプル', logo: 'https://picsum.photos/48/48?random=1' },
+    { name: '株式会社サンプル2', logo: 'https://picsum.photos/48/48?random=2' },
   ],
   description: `キャンペーンの詳細な説明がここに入ります。キャンペーンの詳細な説明がここに入ります。
 キャンペーンの詳細な説明がここに入ります。キャンペーンの詳細な説明がここに入ります。
@@ -22,7 +22,10 @@ const dummyCampaign = {
   ceoMessage: `CEOからのメッセージがここに入ります。CEOからのメッセージがここに入ります。
 CEOからのメッセージがここに入ります。CEOからのメッセージがここに入ります。
 CEOからのメッセージがここに入ります。CEOからのメッセージがここに入ります。`,
-  images: ['/related-image1.jpg', '/related-image2.jpg'],
+  images: [
+    'https://picsum.photos/800/600?random=1',
+    'https://picsum.photos/800/600?random=2'
+  ],
   stats: {
     currentAmount: 12245678,
     targetAmount: 20000000,
@@ -32,13 +35,13 @@ CEOからのメッセージがここに入ります。CEOからのメッセー�
     {
       id: '1',
       title: 'プロジェクトタイトル1',
-      image: '/project1.jpg',
+      image: 'https://picsum.photos/800/600?random=3',
       organization: '株式会社サンプル',
     },
     {
       id: '2',
       title: 'プロジェクトタイトル2',
-      image: '/project2.jpg',
+      image: 'https://picsum.photos/800/600?random=4',
       organization: '株式会社サンプル2',
     },
   ],
